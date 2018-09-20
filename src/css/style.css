@@ -1,0 +1,48 @@
+body {
+  background-color: #222;
+  color: #ddd;
+  font-family: monospace;
+}
+
+a:link {
+    color: red;
+}
+
+a:visited {
+    color: green;
+}
+
+a:hover {
+    color: hotpink;
+}
+
+a:active {
+    color: blue;
+}
+
+h1 {
+  margin: 6px;
+}
+
+input,
+button {
+  background-color: #333;
+  color: #eee;
+  padding: 6px;
+  width: 500px;
+  border: 1px solid #555;
+}
+
+hr {
+  background-color: #666;
+  height: 1px;
+  border: 0;
+}
+
+.inputArea,
+.actionArea,
+.feedbackArea {
+  background-color: #555;
+  margin: 6px;
+  padding: 6px;
+}

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>IOTA Online Broadcaster</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <script src="js/iota-online-broadcaster.bundle.js"></script>
+
+    <h1>IOTA Online Broadcaster</h1>
+
+    <form onsubmit="broadcastBundle(); return false;" method="post">
+
+      <div class="inputArea">
+        <input id="nodeURL" type="text" placeholder="Node URL" value="http://nodes.iota.fm"> // Node url<br>
+        <input id="nodePort" type="text" placeholder="Node port" value="80"> // Node port<br>
+        <input id="signedBundleTrytes" type="text" placeholder="Signed bundle trytes" value=""> // Signed transaction bundle<br>
+      </div>
+
+      <div class="actionArea">
+        <button id="sendButton" type="submit()">Send bundle</button><br>
+      </div>
+
+      <div class="feedbackArea">
+        Status: <span id="sendResult">Not yet broadcasted...</span><br>
+      </div>
+
+    </form>
+  </body>
+</html>
