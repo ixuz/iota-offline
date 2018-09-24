@@ -112,6 +112,7 @@ function signBundle(): void {
   }];
 
   // Add a remainder address if specified by the user
+
   if (remainderAddress) {
     transfers.push({
       'address': remainderAddress,
@@ -122,14 +123,17 @@ function signBundle(): void {
   }
 
   // Construct an options object that includes the input
-  let options = {
-    'inputs': [{
-      'keyIndex': fromAddressIndex,
-      'address': fromAddress,
-      'security': securityLevel,
-      'balance': fromAddressBalance
-    }]
-  };
+  let options = {};
+  if (transferAmount > 0) {
+    options = {
+      'inputs': [{
+        'keyIndex': fromAddressIndex,
+        'address': fromAddress,
+        'security': securityLevel,
+        'balance': fromAddressBalance
+      }]
+    };
+  }
 
   // Sign the bundle
   createPrepareTransfers()(seed, transfers, options)

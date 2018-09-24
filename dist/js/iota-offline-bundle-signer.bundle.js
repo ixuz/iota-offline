@@ -104,14 +104,17 @@ function signBundle() {
         });
     }
     // Construct an options object that includes the input
-    let options = {
-        'inputs': [{
-                'keyIndex': fromAddressIndex,
-                'address': fromAddress,
-                'security': securityLevel,
-                'balance': fromAddressBalance
-            }]
-    };
+    let options = {};
+    if (transferAmount > 0) {
+        options = {
+            'inputs': [{
+                    'keyIndex': fromAddressIndex,
+                    'address': fromAddress,
+                    'security': securityLevel,
+                    'balance': fromAddressBalance
+                }]
+        };
+    }
     // Sign the bundle
     core_2.createPrepareTransfers()(seed, transfers, options)
         .then((trytes) => {
