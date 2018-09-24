@@ -5,57 +5,77 @@ const core_1 = require("@iota/core");
 const core_2 = require("@iota/core");
 const validators_1 = require("@iota/validators");
 const checksum_1 = require("@iota/checksum");
+const converter_1 = require("@iota/converter");
 function signBundle() {
     // Read user input fields
-    var seed = document.getElementById('seed').value;
-    var fromAddress = document.getElementById('fromAddress').value;
-    var fromAddressIndex = Number(document.getElementById('fromAddressIndex').value);
-    var fromAddressBalance = Number(document.getElementById('fromAddressBalance').value);
-    var toAddress = document.getElementById('toAddress').value;
-    var securityLevel = Number(document.getElementById('securityLevel').value);
-    var transferAmount = Number(document.getElementById('transferAmount').value);
-    var remainderAddress = document.getElementById('remainderAddress').value;
-    var message = document.getElementById('message').value;
+    let seed = document.getElementById('seed').value;
+    let fromAddress = document.getElementById('fromAddress').value;
+    let fromAddressIndex = Number(document.getElementById('fromAddressIndex').value);
+    let fromAddressBalance = Number(document.getElementById('fromAddressBalance').value);
+    let toAddress = document.getElementById('toAddress').value;
+    let securityLevel = Number(document.getElementById('securityLevel').value);
+    let transferAmount = Number(document.getElementById('transferAmount').value);
+    let remainderAddress = document.getElementById('remainderAddress').value;
+    let message = document.getElementById('message').value;
     // Find references for feedback and output elements
-    var feedbackElement = document.getElementById('signResult');
-    var outputElement = document.getElementById('signedBundle');
+    let feedbackElement = document.getElementById('signResult');
+    let outputElement = document.getElementById('signedBundle');
+    // Clear output fields
+    feedbackElement.value = "";
+    outputElement.value = "";
     // Validate inputs
     if (validators_1.isTrytes(seed) !== true || seed.length !== 81) {
         feedbackElement.innerHTML = "Input validation error! Input 'seed' must be 81 trytes long.";
         return;
     }
-    if ((securityLevel !== 1 && securityLevel !== 2 && securityLevel !== 3)) {
-        feedbackElement.innerHTML = "Input validation error! Input 'security' must be either '1', '2' or '3'.";
+    if (!Number.isInteger(securityLevel) || ((securityLevel !== 1 && securityLevel !== 2 && securityLevel !== 3))) {
+        feedbackElement.innerHTML = "Input validation error! Input 'securityLevel' must be an integer of value '1', '2' or '3'.";
         return;
     }
-    if (fromAddress.length !== 90 || checksum_1.isValidChecksum(fromAddress) !== true) {
+    if (fromAddress.length !== 90 || validators_1.isTrytes(fromAddress) !== true) {
         feedbackElement.innerHTML = "Input validation error! Input 'fromAddress' must be 90 trytes long and include the checksum.";
         return;
     }
-    if (toAddress.length !== 90 || checksum_1.isValidChecksum(toAddress) !== true) {
+    if (checksum_1.isValidChecksum(fromAddress) !== true) {
+        feedbackElement.innerHTML = "Input validation error! Input 'fromAddress' checksum failed validation check.";
+        return;
+    }
+    if (toAddress.length !== 90 || validators_1.isTrytes(toAddress) !== true) {
         feedbackElement.innerHTML = "Input validation error! Input 'toAddress' must be 90 trytes long and include the checksum.";
         return;
     }
+    if (checksum_1.isValidChecksum(toAddress) !== true) {
+        feedbackElement.innerHTML = "Input validation error! Input 'toAddress' checksum failed validation check.";
+        return;
+    }
     if (Number.isInteger(fromAddressBalance) !== true || fromAddressBalance < 0) {
-        feedbackElement.innerHTML = "Input validation error! Input 'fromAddressBalance' must be a positive integer.";
+        feedbackElement.innerHTML = "Input validation error! Input 'fromAddressBalance' must be an integer of value zero or more.";
         return;
     }
     if (Number.isInteger(transferAmount) !== true || transferAmount < 0) {
-        feedbackElement.innerHTML = "Input validation error! Input 'transferAmount' must be a positive integer.";
+        feedbackElement.innerHTML = "Input validation error! Input 'transferAmount' must be an integer of value zero or more.";
         return;
     }
     if (transferAmount < fromAddressBalance) {
-        if (remainderAddress.length === 0 || validators_1.isTrytes(remainderAddress) !== true || remainderAddress.length !== 90 || checksum_1.isValidChecksum(remainderAddress) !== true) {
-            feedbackElement.innerHTML = "Input validation error! Input 'remainderAddress' must be set because the 'transferAmount' is less than the 'fromAddressBalance'.";
+        if (validators_1.isTrytes(remainderAddress) !== true) {
+            feedbackElement.innerHTML = "Input validation error! Input 'remainderAddress' must be set because the 'transferAmount' is less than the 'fromAddressBalance'. Input 'remainderAddress' must be 90 trytes long and include the checksum.";
+            return;
+        }
+        if (remainderAddress.length !== 90) {
+            feedbackElement.innerHTML = "Input validation error! Input 'remainderAddress' must be 90 trytes long and include the checksum.";
+            return;
+        }
+        if (checksum_1.isValidChecksum(remainderAddress) !== true) {
+            feedbackElement.innerHTML = "Input validation error! Input 'remainderAddress' checksum failed validation check.";
             return;
         }
     }
-    if (transferAmount > fromAddressBalance && validators_1.isTrytes(seed)) {
+    if (transferAmount > fromAddressBalance) {
         feedbackElement.innerHTML = "Input validation error! Input 'transferAmount' should not be more than 'fromAddressBalance'.";
         return;
     }
     if (Number.isInteger(fromAddressIndex) !== true || fromAddressIndex < 0) {
-        feedbackElement.innerHTML = "Input validation error! Input 'fromAddressIndex' must be a positive integer.";
+        feedbackElement.innerHTML = "Input validation error! Input 'fromAddressIndex' must be a positive integer of value zero or more.";
         return;
     }
     let fromAddressDeterministic = core_1.generateAddress(seed, fromAddressIndex, securityLevel, true);
@@ -63,10 +83,14 @@ function signBundle() {
         feedbackElement.innerHTML = "Input validation error! Input 'fromAddress' is not matching the 'fromAddressIndex'.";
         return;
     }
+    if ((/^[\x00-\x7F]*$/.test(message)) !== true) {
+        feedbackElement.innerHTML = "Input validation error! Input 'message' may only contain ASCII characters";
+        return;
+    }
     // Construct a transfers object
-    var transfers = [{
+    let transfers = [{
             'address': toAddress,
-            'message': message,
+            'message': converter_1.asciiToTrytes(message),
             'value': transferAmount,
             'tag': 'IOTAOFFLINE'
         }];
@@ -74,13 +98,13 @@ function signBundle() {
     if (remainderAddress) {
         transfers.push({
             'address': remainderAddress,
-            'message': message,
+            'message': converter_1.asciiToTrytes(message),
             'value': fromAddressBalance - transferAmount,
             'tag': 'IOTAOFFLINE'
         });
     }
     // Construct an options object that includes the input
-    var options = {
+    let options = {
         'inputs': [{
                 'keyIndex': fromAddressIndex,
                 'address': fromAddress,
@@ -95,14 +119,14 @@ function signBundle() {
         feedbackElement.innerHTML = "Success! Transaction bundle signed!";
     })
         .catch((err) => {
-        feedbackElement.innerHTML = "An error occurred upon signing the bundle! Read the console for additional details.";
+        feedbackElement.innerHTML = "An unexpected error occurred upon signing the bundle! Read the console for additional details.";
         console.log(`Error: ${err}`);
     });
 }
 // Expose the function to the browser
 window.signBundle = signBundle;
 
-},{"@iota/checksum":8,"@iota/core":56,"@iota/validators":89}],2:[function(require,module,exports){
+},{"@iota/checksum":8,"@iota/converter":15,"@iota/core":56,"@iota/validators":89}],2:[function(require,module,exports){
 "use strict";
 /** @module bundle-validator */
 var __assign = (this && this.__assign) || Object.assign || function(t) {

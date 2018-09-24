@@ -38,6 +38,16 @@ module.exports = function(grunt) {
           }
         ]    
       },
+      images: {
+        files: [
+          {
+            expand: true,
+            cwd: './src/img/',
+            src:"**",
+            dest:"./dist/img/"
+          }
+        ]    
+      },
       html: {
         files: [
           {
@@ -57,5 +67,5 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.registerTask('build', [ 'clean', 'run:typescript', 'browserify', 'copy:css', 'copy:html' ]);
+  grunt.registerTask('build', [ 'clean', 'run:typescript', 'browserify', 'copy:css', 'copy:images', 'copy:html' ]);
 };

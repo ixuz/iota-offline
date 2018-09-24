@@ -25,12 +25,14 @@ h1 {
 }
 
 input,
+textarea,
 button {
-  background-color: #333;
+  background-color: #33383c;
   color: #eee;
   padding: 6px;
   width: 500px;
-  border: 1px solid #555;
+  border: 1px solid #2b2e31;
+  margin: 2px;
 }
 
 hr {
@@ -42,7 +44,34 @@ hr {
 .inputArea,
 .actionArea,
 .feedbackArea {
-  background-color: #555;
+  background-color: #464e54;
   margin: 6px;
   padding: 6px;
+  border-left: solid 4px #63727d;
+  border-right: solid 4px #394146;
+}
+
+#title {
+  margin: 6px;
+  height: 48px;
+  background-color: #3d444a;
+  border-right: solid 4px #31373c;
+}
+
+#title img {
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+  border: solid 1px #2b2e31;
+}
+
+#title span {
+  height: 48px;
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+  font-family: monospace;
+  color: #ddd;
+  font-size: 18px;
+  line-height: 9px;
 }

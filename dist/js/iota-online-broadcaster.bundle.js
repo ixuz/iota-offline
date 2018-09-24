@@ -3,12 +3,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@iota/core");
 function broadcastBundle() {
-    // Read user input fields
-    var nodeURL = document.getElementById('nodeURL').value;
-    var nodePort = document.getElementById('nodePort').value;
-    var bundleTrytes = JSON.parse(document.getElementById('signedBundleTrytes').value);
     // Find references for feedback and output elements
-    var feedbackElement = document.getElementById('sendResult');
+    let feedbackElement = document.getElementById('sendResult');
+    // Read user input fields
+    let nodeURL = document.getElementById('nodeURL').value;
+    let nodePort = document.getElementById('nodePort').value;
+    let bundleTrytes = "";
+    try {
+        bundleTrytes = JSON.parse(document.getElementById('signedBundleTrytes').value);
+    }
+    catch (e) {
+        feedbackElement.innerHTML = "Input validation error! Input 'bundleTrytes' failed to parse as JSON.";
+        return;
+    }
     // Depth or how far to go for tip selection entry point
     const tipSelectionDepth = 3;
     // Set the Proof-of-Work difficulty. (mainnet & spamnet = 14, devnet = 9)
@@ -21,15 +28,15 @@ function broadcastBundle() {
     iota.sendTrytes(bundleTrytes, tipSelectionDepth, minWeightMagnitude)
         .then((bundle) => {
         feedbackElement.innerHTML = "Success! Bundled has been broadcasted!";
-        var anchorElement = document.createElement('a');
-        var textNode = document.createTextNode("Inspect transaction bundle @ TheTangle.org");
+        let anchorElement = document.createElement('a');
+        let textNode = document.createTextNode("Inspect transaction bundle @ TheTangle.org");
         anchorElement.appendChild(textNode);
         anchorElement.title = "Inspect transaction bundle @ TheTangle.org";
         anchorElement.href = "https://thetangle.org/bundle/" + bundle[0].bundle;
         document.body.appendChild(anchorElement);
     })
         .catch((err) => {
-        feedbackElement.innerHTML = "An error occurred upon broadcasting the bundle! Read the console for additional details.";
+        feedbackElement.innerHTML = "An unexpected error occurred upon broadcasting the bundle! Read the console for additional details.";
         console.log(`Error: ${err}`);
     });
 }

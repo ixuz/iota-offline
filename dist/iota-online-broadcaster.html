@@ -7,14 +7,17 @@
   <body>
     <script src="js/iota-online-broadcaster.bundle.js"></script>
 
-    <h1>IOTA Online Broadcaster</h1>
-
+    <div id="title">
+      <img src="img/iota-offline-icon.png">
+      <span>IOTA Online Broadcaster</span>
+    </div>
+    
     <form onsubmit="broadcastBundle(); return false;" method="post">
 
       <div class="inputArea">
         <input id="nodeURL" type="text" placeholder="Node URL" value="http://nodes.iota.fm"> // Node url<br>
         <input id="nodePort" type="text" placeholder="Node port" value="80"> // Node port<br>
-        <input id="signedBundleTrytes" type="text" placeholder="Signed bundle trytes" value=""> // Signed transaction bundle<br>
+        <textarea rows="6" id="signedBundleTrytes" type="text" placeholder="Insert your signed bundle here..." value=""></textarea><br>
       </div>
 
       <div class="actionArea">

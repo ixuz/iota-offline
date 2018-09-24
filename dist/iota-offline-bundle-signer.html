@@ -7,7 +7,10 @@
   <body>
     <script src="js/iota-offline-bundle-signer.bundle.js"></script>
 
-    <h1>IOTA Offline Bundle Signer</h1>
+    <div id="title">
+      <img src="img/iota-offline-icon.png">
+      <span>IOTA Offline Bundle Signer</span>
+    </div>
 
     <form onsubmit="signBundle(); return false;" method="post">
 
@@ -20,7 +23,7 @@
         <input id="securityLevel" type="text" placeholder="Security level" value="2"> // Security level<br>
         <input id="transferAmount" type="text" placeholder="Transfer amount" value="2"> // Transfer amount<br>
         <input id="remainderAddress" type="text" placeholder="Remainder address" value="9HLDKWHATVBPJFSPJBHTYLTYKTBOPWKLROWLZFPBMFDZMMHFSSVOVYH9FSNILQYHEWOLGLUYWCETDFFYWAFHTKLTAD"> // Remainder address<br>
-        <input id="message" type="text" placeholder="Message (optional)" value=""> // Message (optional)<br>
+        <textarea rows="6" id="message" type="text" placeholder="Message (optional)" value=""></textarea><br>
       </div>
 
       <div class="actionArea">
@@ -29,7 +32,7 @@
 
       <div class="feedbackArea">
         Status: <span id="signResult">Not yet signed...</span><br>
-        <input id="signedBundle" type="text" placeholder="Signed bundle"> // Signed transaction bundle<br>
+        <textarea rows="6" id="signedBundle" type="text" placeholder="You will see your signed transaction bundle here..."></textarea><br>
       </div>
       
     </form>
