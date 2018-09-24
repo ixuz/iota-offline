@@ -21,24 +21,39 @@ Now I can broadcast my signed transaction bundle to the tangle.
 
 By doing it this way, I feel very comfortable signing transactions from my cold wallet to my hot wallet.
 
-## Install
-There is no installationen needed, it works out of the box.
-Download the files and open any of the .html files in your browser.
-
 ## Build from scratch
 Required softwares:
 * npm (Node package manager)
 * tsc (TypeScript Compiler)
 
-Open a terminal and run: `npm install`
+1. Install the required softwares.
+2. Open a terminal.
+3. Navigate to the iota-offline folder.
+4. Run the command: `npm install`
 
 ## Usage
+
+There is no installation required, you can use the pre-compiled toolset out of the box.
+Download the files, go to the folder **dist/** and open any of the .html files in your browser.
 
 ### Demonstrational video
 
 [Video](https://www.youtube.com/watch?v=hKLVcqpdBLc)
 
-### Step 1: iota-offline-bundle-signer.html ###
+### Step 1: iota-offline-address-generator.html ###
+
+![address-generator.png](https://github.com/ixuz/iota-offline/blob/master/screenshots/address-generator.png)
+
+**Seed :**
+Enter your 81 tryte seed.
+
+**Security level :**
+The level of security desired. (1, 2 or 3).
+* Level 1 produces a short signature.
+* Level 2 produces a medium signature (default by most wallets).
+* Level 3 produces a long signature.
+
+### Step 2: iota-offline-bundle-signer.html ###
 
 ![bundle-signer.png](https://github.com/ixuz/iota-offline/blob/master/screenshots/bundle-signer.png)
 
@@ -58,6 +73,12 @@ Enter the full balance available on the sender address. (the amount must be posi
 **To address :**
 Enter the 90 trytes of the recipent address.
 
+**Security level :**
+The level of security desired (1, 2 or 3).
+* Level 1 produces a short signature.
+* Level 2 produces a medium signature (default by most wallets).
+* Level 3 produces a long signature.
+
 **Transfer amount :**
 Enter the amount to transfer to the recipent. (the amount must be positive integer)
 
@@ -65,7 +86,14 @@ Enter the amount to transfer to the recipent. (the amount must be positive integ
 Enter the 90 trytes of the remainder address.
 *(This field is only neccessary if the "From address balance" and "Transfer amount" fields are different)*
 
-### Step 2: iota-online-bundle-broadcaster.html ###
+**Message :**
+Optional field for a message (Only ASCII characters allowed).
+
+**Signed bundle :**
+Once you sign the bundle, its trytes will show up in this field.
+These trytes will be used in **step 3** which requires an online device.
+
+### Step 3: iota-online-bundle-broadcaster.html ###
 
 ![bundle-broadcaster.png](https://github.com/ixuz/iota-offline/blob/master/screenshots/bundle-broadcaster.png)
 
@@ -77,7 +105,7 @@ Enter the node port.
 
 **Signed bundle trytes :**
 Enter the signed transaction bundle trytes.
-*(See **step 1** for how to generate signed transaction bundle trytes)*
+*(See **step 2** for how to generate signed transaction bundle trytes)*
 
 ## Donations
 [OMTTWFMFKU9UOFIAAXKCOKUVLPYTOYKCQAWFXWQY9MUYOVNFCCITJOUKAOXR9TJ9DECXLGYDOMDLPTYHCOFPHDJXUC](https://thetangle.org/address/OMTTWFMFKU9UOFIAAXKCOKUVLPYTOYKCQAWFXWQY9MUYOVNFCCITJOUKAOXR9TJ9DECXLGYDOMDLPTYHCOFPHDJXUC)
