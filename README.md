@@ -1,4 +1,4 @@
-# iota-offline
+# IOTA Offline
 A completely offline IOTA transaction bundle signer.
 
 :warning: This toolset requires two devices.
