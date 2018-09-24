@@ -21,11 +21,6 @@ Now I can broadcast my signed transaction bundle to the tangle.
 
 By doing it this way, I feel very comfortable signing transactions from my cold wallet to my hot wallet.
 
-## Try it on Github Pages
-:warning: Only use the Github Pages version for testing purposes.
-
-[https://ixuz.github.io/iota-offline/](https://ixuz.github.io/iota-offline/)
-
 ## Install
 There is no installationen needed, it works out of the box.
 Download the files and open any of the .html files in your browser.
