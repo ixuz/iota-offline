@@ -59,7 +59,7 @@ hr {
   border: solid 1px #2b2e31;
 }
 
-#title span {
+#title #titleText {
   height: 48px;
   display: inline-block;
   vertical-align: middle;
@@ -68,4 +68,15 @@ hr {
   color: #ddd;
   font-size: 18px;
   line-height: 9px;
+}
+
+#title #version {
+  font-size: 14px;
+  height: 48px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 12px;
+  line-height: 50px;
+  float: right;
+  padding-right: 10px;
 }
