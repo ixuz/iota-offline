@@ -40,7 +40,7 @@ Download the files, go to the folder **dist/** and open any of the .html files i
 
 ### Demonstrational video
 
-[Video](https://www.youtube.com/watch?v=hKLVcqpdBLc)
+:tv: [How to use iota-offline](https://www.youtube.com/watch?v=hKLVcqpdBLc)
 
 ### Step 1: iota-offline-address-generator.html ###
 
@@ -128,6 +128,6 @@ Enter the node port.
 Enter the signed transaction bundle trytes.
 *(See **step 2** for how to generate signed transaction bundle trytes)*
 
-## Donations
+## Donations :gift:
 
 [OMTTWFMFKU9UOFIAAXKCOKUVLPYTOYKCQAWFXWQY9MUYOVNFCCITJOUKAOXR9TJ9DECXLGYDOMDLPTYHCOFPHDJXUC](https://thetangle.org/address/OMTTWFMFKU9UOFIAAXKCOKUVLPYTOYKCQAWFXWQY9MUYOVNFCCITJOUKAOXR9TJ9DECXLGYDOMDLPTYHCOFPHDJXUC)
