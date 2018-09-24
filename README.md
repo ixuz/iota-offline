@@ -22,7 +22,7 @@ Now I can broadcast my signed transaction bundle to the tangle.
 
 By doing it this way, I feel very comfortable signing transactions from my cold wallet to my hot wallet.
 
-## Build from scratch
+## Build from scratch (optional/not required)
 
 Required softwares:
 * npm (Node package manager)
