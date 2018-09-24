@@ -25,6 +25,13 @@ By doing it this way, I feel very comfortable signing transactions from my cold 
 There is no installationen needed, it works out of the box.
 Download the files and open any of the .html files in your browser.
 
+## Build from scratch
+Required softwares:
+* npm (Node package manager)
+* tsc (TypeScript Compiler)
+
+Open a terminal and run: `npm install`
+
 ## Usage
 
 ### Demonstrational video
