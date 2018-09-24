@@ -4,20 +4,14 @@ body {
   font-family: monospace;
 }
 
-a:link {
-    color: red;
-}
-
-a:visited {
-    color: green;
+a:link,
+a:visited,
+a:active {
+  color: #49a8d0;
 }
 
 a:hover {
-    color: hotpink;
-}
-
-a:active {
-    color: blue;
+  color: #8bc0d6;
 }
 
 h1 {
