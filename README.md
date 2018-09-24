@@ -98,6 +98,7 @@ The level of security desired (1, 2 or 3).
 Enter the amount to transfer to the recipent. (the amount must be positive integer)
 
 **Remainder address :**
+
 Enter the 90 trytes of the remainder address.
 *(This field is only neccessary if the "From address balance" and "Transfer amount" fields are different)*
 
