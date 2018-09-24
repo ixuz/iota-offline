@@ -53,6 +53,9 @@ The level of security desired. (1, 2 or 3).
 * Level 2 produces a medium signature (default by most wallets).
 * Level 3 produces a long signature.
 
+**Number of addresses :**
+Enter the number of addresses you wish to generate based upon the seed and security level.
+
 ### Step 2: iota-offline-bundle-signer.html ###
 
 ![bundle-signer.png](https://github.com/ixuz/iota-offline/blob/master/screenshots/bundle-signer.png)
