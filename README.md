@@ -26,9 +26,8 @@ By doing it this way, I feel very comfortable signing transactions from my cold 
 
 Required softwares:
 * npm (Node package manager)
-* tsc (TypeScript Compiler)
 
-1. Install the required softwares.
+1. Install the required software.
 2. Open a terminal.
 3. Navigate to the iota-offline folder.
 4. Run the command: `npm install`
