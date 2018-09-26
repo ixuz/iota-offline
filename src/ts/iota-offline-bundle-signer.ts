@@ -5,6 +5,7 @@ import { isTrytes } from '@iota/validators'
 import { isValidChecksum } from '@iota/checksum'
 import { asciiToTrytes } from '@iota/converter'
 import QRious from 'qrious';
+import jsc from 'js-string-compression'
 
 function signBundle(): void {
 
@@ -142,6 +143,7 @@ function signBundle(): void {
     .then((trytes: any) => {
       outputElement.value = JSON.stringify(trytes);
       feedbackElement.innerHTML = "Success! Transaction bundle signed!";
+
 
       var trytes: any = JSON.stringify(trytes);
 
