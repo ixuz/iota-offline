@@ -4,6 +4,7 @@ import { createPrepareTransfers } from '@iota/core'
 import { isTrytes } from '@iota/validators'
 import { isValidChecksum } from '@iota/checksum'
 import { asciiToTrytes } from '@iota/converter'
+import QRious from 'qrious';
 
 function signBundle(): void {
 
@@ -21,6 +22,7 @@ function signBundle(): void {
   // Find references for feedback and output elements
   let feedbackElement: HTMLInputElement = <HTMLInputElement>document.getElementById('signResult');
   let outputElement: HTMLInputElement = <HTMLInputElement>document.getElementById('signedBundle');
+  let qrElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('qr');
   
   // Clear output fields
   feedbackElement.value = "";
@@ -140,6 +142,15 @@ function signBundle(): void {
     .then((trytes: any) => {
       outputElement.value = JSON.stringify(trytes);
       feedbackElement.innerHTML = "Success! Transaction bundle signed!";
+
+      var trytes: any = JSON.stringify(trytes);
+
+      var qr = new QRious({
+        element: qrElement,
+        value: trytes,
+        size: 512,
+        level: "H"
+      });
     })
     .catch((err: any) => {
       feedbackElement.innerHTML = "An unexpected error occurred upon signing the bundle! Read the console for additional details.";

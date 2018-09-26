@@ -7,7 +7,8 @@
     "@iota/checksum": "^1.0.0-beta.5",
     "@iota/core": "^1.0.0-beta.5",
     "@iota/validators": "^1.0.0-beta.5",
-    "jsqr": "^1.1.1"
+    "jsqr": "^1.1.1",
+    "qrious": "^4.0.2"
   },
   "devDependencies": {
     "copyfiles": "^2.1.0",

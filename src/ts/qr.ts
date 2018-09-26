@@ -1,4 +1,17 @@
 import jsQR from 'jsqr'
+import QRious from 'qrious';
+
+function generateQR(): void {
+
+  let qrElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('qr');
+
+  console.log(QRious);
+  var qr = new QRious({
+    element: qrElement,
+    value: 'https://github.com/neocotic/qrious',
+    size: 256
+  });
+}
 
 function scanQR(): void {
   let video: HTMLVideoElement = <HTMLVideoElement>document.getElementById('video');
@@ -42,4 +55,5 @@ function scanQR(): void {
 }
 
 // Expose the function to the browser
+(<any>window).generateQR = generateQR;
 (<any>window).scanQR = scanQR;

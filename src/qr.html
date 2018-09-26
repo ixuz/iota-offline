@@ -7,10 +7,16 @@
   <body>
     <script src="js/qr.bundle.js"></script>
 
+    <form onsubmit="generateQR(); return false;" method="post">
+      <button id="generateQRButton" type="submit()">Scan QR code with camera</button><br>
+    </form>
+
     <form onsubmit="scanQR(); return false;" method="post">
       <button id="scanQRButton" type="submit()">Scan QR code with camera</button><br>
     </form>
 
+
+    <canvas id="qr"></canvas>
     <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
     <canvas id="outVideo" width="300" height="200" style="border: 1px solid gray"></video>
 
