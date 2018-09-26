@@ -148,7 +148,7 @@ function signBundle(): void {
       var qr = new QRious({
         element: qrElement,
         value: trytes,
-        size: 512,
+        size: 800,
         level: "H"
       });
     })

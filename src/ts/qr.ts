@@ -23,7 +23,7 @@ function scanQR(): void {
 
   n.getUserMedia = ( n.getUserMedia || n.webkitGetUserMedia || n.mozGetUserMedia  || n.msGetUserMedia );
 
-  n.mediaDevices.getUserMedia({ video: true }).then(function(stream: MediaSource) {
+  n.mediaDevices.getUserMedia({ video: { facingMode: "user" } }).then(function(stream: MediaSource) {
     console.log("Stream");
     
     video.srcObject = stream;

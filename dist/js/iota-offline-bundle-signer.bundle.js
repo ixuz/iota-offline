@@ -129,7 +129,7 @@ function signBundle() {
         var qr = new qrious_1.default({
             element: qrElement,
             value: trytes,
-            size: 512,
+            size: 800,
             level: "H"
         });
     })
