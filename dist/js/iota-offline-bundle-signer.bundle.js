@@ -123,14 +123,16 @@ function signBundle() {
     // Sign the bundle
     core_2.createPrepareTransfers()(seed, transfers, options)
         .then((trytes) => {
-        outputElement.value = JSON.stringify(trytes);
+        outputElement.value = trytes[0];
         feedbackElement.innerHTML = "Success! Transaction bundle signed!";
-        var trytes = JSON.stringify(trytes);
+        console.log("trytes: " + trytes[0]);
+        console.log("trytes: " + trytes[1].length);
+        console.log("trytes: " + trytes[2].length);
         var qr = new qrious_1.default({
             element: qrElement,
-            value: trytes,
-            size: 800,
-            level: "H"
+            value: trytes[0],
+            size: 600,
+            level: "L"
         });
     })
         .catch((err) => {
