@@ -21,7 +21,7 @@ function scanQR() {
     console.log("video: ", video);
     var n = navigator;
     n.getUserMedia = (n.getUserMedia || n.webkitGetUserMedia || n.mozGetUserMedia || n.msGetUserMedia);
-    n.mediaDevices.getUserMedia({ video: { facingMode: "user" } }).then(function (stream) {
+    n.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function (stream) {
         console.log("Stream");
         video.srcObject = stream;
         video.play();
