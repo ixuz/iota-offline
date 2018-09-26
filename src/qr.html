@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>IOTA Online Broadcaster</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <script src="js/qr.bundle.js"></script>
+
+    <form onsubmit="scanQR(); return false;" method="post">
+      <button id="scanQRButton" type="submit()">Scan QR code with camera</button><br>
+    </form>
+
+    <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+    <canvas id="outVideo" width="300" height="200" style="border: 1px solid gray"></video>
+
+  </body>
+</html>
