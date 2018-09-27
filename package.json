@@ -10,6 +10,7 @@
     "js-string-compression": "^1.0.1",
     "jsqr": "^1.1.1",
     "node-zip": "^1.1.1",
+    "qrcode-reader": "^1.0.4",
     "qrious": "^4.0.2"
   },
   "devDependencies": {
