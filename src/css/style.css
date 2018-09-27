@@ -29,6 +29,15 @@ button {
   margin: 2px;
 }
 
+.qrButton {
+  background-color: #33383c;
+  color: #eee;
+  padding: 6px;
+  width: 256px;
+  border: 1px solid #2b2e31;
+  margin: 0px;
+}
+
 hr {
   background-color: #666;
   height: 1px;
@@ -79,4 +88,9 @@ hr {
   line-height: 50px;
   float: right;
   padding-right: 10px;
+}
+
+.qrTitle {
+  padding: 6px;
+  margin-bottom: 4px;
 }

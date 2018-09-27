@@ -22,7 +22,7 @@ function signBundle(): void {
   // Find references for feedback and output elements
   let feedbackElement: HTMLInputElement = <HTMLInputElement>document.getElementById('signResult');
   let outputElement: HTMLInputElement = <HTMLInputElement>document.getElementById('signedBundle');
-  let qrElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('qr');
+  let qrAreaElement: HTMLDivElement = <HTMLDivElement>document.getElementById('qrArea');
   
   // Clear output fields
   feedbackElement.value = "";
@@ -139,25 +139,99 @@ function signBundle(): void {
 
   // Sign the bundle
   createPrepareTransfers()(seed, transfers, options)
-    .then((trytes: any) => {
-      outputElement.value = trytes[0];
+    .then((bundleTrytes: any) => {
+      outputElement.value = JSON.stringify(bundleTrytes);
       feedbackElement.innerHTML = "Success! Transaction bundle signed!";
+      generateQRCodes(bundleTrytes);
 
-      console.log("trytes: " + trytes[0]);
-      console.log("trytes: " + trytes[1].length);
-      console.log("trytes: " + trytes[2].length);
-
-      var qr = new QRious({
-        element: qrElement,
-        value: trytes[0],
-        size: 600,
-        level: "L"
+      var showQRCodesButton: HTMLButtonElement = <HTMLButtonElement>document.createElement('button');
+      showQRCodesButton.innerHTML = "Show QR codes";
+      showQRCodesButton.addEventListener("click", (e:Event) => {
+        e.preventDefault();
+        qrAreaElement.removeChild(showQRCodesButton);
+        showQR(0);
       });
+      qrAreaElement.appendChild(showQRCodesButton);
     })
     .catch((err: any) => {
       feedbackElement.innerHTML = "An unexpected error occurred upon signing the bundle! Read the console for additional details.";
       console.log(`Error: ${err}`);
     });
+}
+
+function generateQRCodes(bundleTrytes: any): void {
+
+  let qrAreaElement: HTMLDivElement = <HTMLDivElement>document.getElementById('qrArea');
+
+  while (qrAreaElement.firstChild) {
+      qrAreaElement.removeChild(qrAreaElement.firstChild);
+  }
+
+  for (let i = 0; i < bundleTrytes.length ; i++) {
+    var qrSize: number = 512;
+
+    var qrDiv: HTMLDivElement = <HTMLDivElement>document.createElement('div');
+    var qrButtonList: HTMLDivElement = <HTMLDivElement>document.createElement('div');
+    var qrPreviousButton: HTMLButtonElement = <HTMLButtonElement>document.createElement('button');
+    var qrNextButton: HTMLButtonElement = <HTMLButtonElement>document.createElement('button');
+    var qrTitleDiv: HTMLDivElement = <HTMLDivElement>document.createElement('div');
+    var qrCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.createElement('canvas');
+
+    qrDiv.className = "qrDiv";
+    qrDiv.setAttribute("style", "display:none;");
+
+    qrTitleDiv.className = "qrTitle";
+    qrTitleDiv.innerHTML = "QR code " + (i+1) + "/" + bundleTrytes.length;
+
+    var ctx: any  = qrCanvas.getContext("2d");
+    qrCanvas.width = qrSize;
+    qrCanvas.height = qrSize;
+
+    var qr = new QRious({
+      element: qrCanvas,
+      value: bundleTrytes[i],
+      size: qrSize,
+      level: "L"
+    });
+
+    qrPreviousButton.innerHTML = "Previous";
+    qrPreviousButton.className = "qrButton";
+    qrPreviousButton.addEventListener("click", (e:Event) => {
+      e.preventDefault();
+      showQR(i-1);
+    });
+
+    qrNextButton.innerHTML = "Next";
+    qrNextButton.className = "qrButton";
+    qrNextButton.addEventListener("click", (e:Event) => {
+      e.preventDefault();
+      showQR(i+1);
+    });
+
+    qrAreaElement.appendChild(qrDiv);
+    qrDiv.appendChild(qrTitleDiv);
+    qrDiv.appendChild(qrCanvas);
+    qrDiv.appendChild(qrButtonList);
+    qrButtonList.appendChild(qrPreviousButton);
+    qrButtonList.appendChild(qrNextButton);
+  }
+}
+
+function showQR(index: number): void {
+
+  var qrDivList: HTMLCollectionOf<HTMLDivElement> = <HTMLCollectionOf<HTMLDivElement>>document.getElementsByClassName('qrDiv');
+
+  if (index < 0 || index >= qrDivList.length) {
+    return;
+  }
+
+  for (let i = 0; i < qrDivList.length ; i++) {
+    if (i === index) {
+      qrDivList[i].setAttribute("style", "");
+    } else {
+      qrDivList[i].setAttribute("style", "display:none;");
+    }
+  }
 }
 
 // Expose the function to the browser

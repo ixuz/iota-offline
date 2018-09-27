@@ -20,8 +20,7 @@ module.exports = function(grunt) {
         files: {
           'dist/js/iota-offline-address-generator.bundle.js': ['build/js/iota-offline-address-generator.js'],
           'dist/js/iota-offline-bundle-signer.bundle.js': ['build/js/iota-offline-bundle-signer.js'],
-          'dist/js/iota-online-broadcaster.bundle.js': ['build/js/iota-online-broadcaster.js'],
-          'dist/js/qr.bundle.js': ['build/js/qr.js']
+          'dist/js/iota-online-broadcaster.bundle.js': ['build/js/iota-online-broadcaster.js']
         },
         options: {
 

@@ -24,7 +24,7 @@ function signBundle() {
     // Find references for feedback and output elements
     let feedbackElement = document.getElementById('signResult');
     let outputElement = document.getElementById('signedBundle');
-    let qrElement = document.getElementById('qr');
+    let qrAreaElement = document.getElementById('qrArea');
     // Clear output fields
     feedbackElement.value = "";
     outputElement.value = "";
@@ -122,23 +122,83 @@ function signBundle() {
     }
     // Sign the bundle
     core_2.createPrepareTransfers()(seed, transfers, options)
-        .then((trytes) => {
-        outputElement.value = trytes[0];
+        .then((bundleTrytes) => {
+        outputElement.value = JSON.stringify(bundleTrytes);
         feedbackElement.innerHTML = "Success! Transaction bundle signed!";
-        console.log("trytes: " + trytes[0]);
-        console.log("trytes: " + trytes[1].length);
-        console.log("trytes: " + trytes[2].length);
-        var qr = new qrious_1.default({
-            element: qrElement,
-            value: trytes[0],
-            size: 600,
-            level: "L"
+        generateQRCodes(bundleTrytes);
+        var showQRCodesButton = document.createElement('button');
+        showQRCodesButton.innerHTML = "Show QR codes";
+        showQRCodesButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            qrAreaElement.removeChild(showQRCodesButton);
+            showQR(0);
         });
+        qrAreaElement.appendChild(showQRCodesButton);
     })
         .catch((err) => {
         feedbackElement.innerHTML = "An unexpected error occurred upon signing the bundle! Read the console for additional details.";
         console.log(`Error: ${err}`);
     });
+}
+function generateQRCodes(bundleTrytes) {
+    let qrAreaElement = document.getElementById('qrArea');
+    while (qrAreaElement.firstChild) {
+        qrAreaElement.removeChild(qrAreaElement.firstChild);
+    }
+    for (let i = 0; i < bundleTrytes.length; i++) {
+        var qrSize = 512;
+        var qrDiv = document.createElement('div');
+        var qrButtonList = document.createElement('div');
+        var qrPreviousButton = document.createElement('button');
+        var qrNextButton = document.createElement('button');
+        var qrTitleDiv = document.createElement('div');
+        var qrCanvas = document.createElement('canvas');
+        qrDiv.className = "qrDiv";
+        qrDiv.setAttribute("style", "display:none;");
+        qrTitleDiv.className = "qrTitle";
+        qrTitleDiv.innerHTML = "QR code " + (i + 1) + "/" + bundleTrytes.length;
+        var ctx = qrCanvas.getContext("2d");
+        qrCanvas.width = qrSize;
+        qrCanvas.height = qrSize;
+        var qr = new qrious_1.default({
+            element: qrCanvas,
+            value: bundleTrytes[i],
+            size: qrSize,
+            level: "L"
+        });
+        qrPreviousButton.innerHTML = "Previous";
+        qrPreviousButton.className = "qrButton";
+        qrPreviousButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            showQR(i - 1);
+        });
+        qrNextButton.innerHTML = "Next";
+        qrNextButton.className = "qrButton";
+        qrNextButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            showQR(i + 1);
+        });
+        qrAreaElement.appendChild(qrDiv);
+        qrDiv.appendChild(qrTitleDiv);
+        qrDiv.appendChild(qrCanvas);
+        qrDiv.appendChild(qrButtonList);
+        qrButtonList.appendChild(qrPreviousButton);
+        qrButtonList.appendChild(qrNextButton);
+    }
+}
+function showQR(index) {
+    var qrDivList = document.getElementsByClassName('qrDiv');
+    if (index < 0 || index >= qrDivList.length) {
+        return;
+    }
+    for (let i = 0; i < qrDivList.length; i++) {
+        if (i === index) {
+            qrDivList[i].setAttribute("style", "");
+        }
+        else {
+            qrDivList[i].setAttribute("style", "display:none;");
+        }
+    }
 }
 // Expose the function to the browser
 window.signBundle = signBundle;
