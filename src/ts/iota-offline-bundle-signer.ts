@@ -4,7 +4,7 @@ import { createPrepareTransfers } from '@iota/core'
 import { isTrytes } from '@iota/validators'
 import { isValidChecksum } from '@iota/checksum'
 import { asciiToTrytes } from '@iota/converter'
-import QRious from 'qrious';
+import QRCode from 'qrcode';
 
 function signBundle(): void {
 
@@ -187,13 +187,16 @@ function generateQRCodes(bundleTrytes: any): void {
     qrCanvas.width = qrSize;
     qrCanvas.height = qrSize;
 
-    var qr = new QRious({
-      element: qrCanvas,
-      value: bundleTrytes[i],
-      size: qrSize,
-      level: "H"
+    var options: any = {
+      errorCorrectionLevel: 'M',
+      version: 36,
+      mode: 'alphanumeric'
+    };
+    QRCode.toCanvas(qrCanvas, bundleTrytes[i], options, function (error: any) {
+      if (error) console.error(error)
+      console.log('success!');
     });
-
+    
     qrPreviousButton.innerHTML = "Previous";
     qrPreviousButton.className = "qrButton";
     qrPreviousButton.addEventListener("click", (e:Event) => {
