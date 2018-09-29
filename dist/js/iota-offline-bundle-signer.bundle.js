@@ -146,7 +146,7 @@ function generateQRCodes(bundleTrytes) {
         qrAreaElement.removeChild(qrAreaElement.firstChild);
     }
     for (let i = 0; i < bundleTrytes.length; i++) {
-        var qrSize = 512;
+        var qrSize = 256 * 2;
         var qrDiv = document.createElement('div');
         var qrButtonList = document.createElement('div');
         var qrPreviousButton = document.createElement('button');
@@ -164,7 +164,7 @@ function generateQRCodes(bundleTrytes) {
             element: qrCanvas,
             value: bundleTrytes[i],
             size: qrSize,
-            level: "L"
+            level: "H"
         });
         qrPreviousButton.innerHTML = "Previous";
         qrPreviousButton.className = "qrButton";

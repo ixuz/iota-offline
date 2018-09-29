@@ -168,7 +168,7 @@ function generateQRCodes(bundleTrytes: any): void {
   }
 
   for (let i = 0; i < bundleTrytes.length ; i++) {
-    var qrSize: number = 512;
+    var qrSize: number = 256*2;
 
     var qrDiv: HTMLDivElement = <HTMLDivElement>document.createElement('div');
     var qrButtonList: HTMLDivElement = <HTMLDivElement>document.createElement('div');
@@ -191,7 +191,7 @@ function generateQRCodes(bundleTrytes: any): void {
       element: qrCanvas,
       value: bundleTrytes[i],
       size: qrSize,
-      level: "L"
+      level: "H"
     });
 
     qrPreviousButton.innerHTML = "Previous";
