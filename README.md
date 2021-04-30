@@ -1,3 +1,5 @@
+:warning: DEPRECATED 20210430: The IOTA network have been updated(see [Chrysalis](http://chrysalis.iota.org/)), I will no longer maintain this repository.
+
 # IOTA Offline
 A completely offline IOTA transaction bundle signer.
 
