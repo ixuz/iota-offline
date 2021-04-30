@@ -128,7 +128,3 @@ Enter the node port.
 
 Enter the signed transaction bundle trytes.
 *(See **step 2** for how to generate signed transaction bundle trytes)*
-
-## Donations :gift:
-
-[UPTOXEOHKXRYIDQCRVFKFNFDKXJKMTHJKIEOHWUMPATX9EAQQLXGBKKXTMHGUXEFVCOYZQYQP9CUSWEHBKCAXTAIKY](https://thetangle.org/address/UPTOXEOHKXRYIDQCRVFKFNFDKXJKMTHJKIEOHWUMPATX9EAQQLXGBKKXTMHGUXEFVCOYZQYQP9CUSWEHBKCAXTAIKY)
